@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';" />
+  <title>Morse Mouse</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Window drag region / title bar -->
+  <header class="titlebar">
+    <span class="app-title">⬤ &nbsp;Morse Mouse</span>
+    <div id="status-dot" class="status-dot" title="Press active"></div>
+  </header>
+
+  <main class="layout">
+
+    <!-- ── Big click zone ────────────────────────────── -->
+    <section id="input-zone" class="input-zone" role="button" aria-label="Morse input area. Click and hold for dash, tap for dot." tabindex="0">
+      <div id="ripple-container" class="ripple-container" aria-hidden="true"></div>
+      <div class="input-hint">
+        <p class="hint-primary">Click &amp; Hold</p>
+        <p class="hint-secondary">
+          <span class="tag dot-tag">tap&nbsp;=&nbsp;<b>·</b></span>
+          &nbsp;
+          <span class="tag dash-tag">hold&nbsp;=&nbsp;<b>—</b></span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ── Output panel ───────────────────────────────── -->
+    <section class="output-panel">
+
+      <div class="output-block">
+        <label class="output-label">Morse</label>
+        <div id="morse-display" class="output-value morse-value" aria-live="polite">—</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="output-block">
+        <label class="output-label">Decoded</label>
+        <div id="decoded-display" class="output-value decoded-value" aria-live="polite">—</div>
+      </div>
+
+      <button id="clear-btn" class="clear-btn" title="Clear (reset)">✕ Clear</button>
+
+    </section>
+
+    <!-- ── Reference cheat-sheet ─────────────────────── -->
+    <section class="cheatsheet">
+      <details>
+        <summary>Morse Reference</summary>
+        <div class="morse-grid">
+          <!-- A–Z -->
+          <span><b>A</b> ·—</span><span><b>B</b> —···</span><span><b>C</b> —·—·</span><span><b>D</b> —··</span>
+          <span><b>E</b> ·</span><span><b>F</b> ··—·</span><span><b>G</b> ——·</span><span><b>H</b> ····</span>
+          <span><b>I</b> ··</span><span><b>J</b> ·———</span><span><b>K</b> —·—</span><span><b>L</b> ·—··</span>
+          <span><b>M</b> ——</span><span><b>N</b> —·</span><span><b>O</b> ———</span><span><b>P</b> ·——·</span>
+          <span><b>Q</b> ——·—</span><span><b>R</b> ·—·</span><span><b>S</b> ···</span><span><b>T</b> —</span>
+          <span><b>U</b> ··—</span><span><b>V</b> ···—</span><span><b>W</b> ·——</span><span><b>X</b> —··—</span>
+          <span><b>Y</b> —·——</span><span><b>Z</b> ——··</span>
+          <!-- 0–9 -->
+          <span><b>0</b> —————</span><span><b>1</b> ·————</span><span><b>2</b> ··———</span><span><b>3</b> ···——</span>
+          <span><b>4</b> ····—</span><span><b>5</b> ·····</span><span><b>6</b> —····</span><span><b>7</b> ——···</span>
+          <span><b>8</b> ———··</span><span><b>9</b> ————·</span>
+        </div>
+      </details>
+    </section>
+
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

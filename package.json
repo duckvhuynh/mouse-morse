@@ -1,0 +1,30 @@
+{
+  "name": "morse-mouse",
+  "version": "1.0.0",
+  "description": "A minimal desktop app that lets you input Morse code using your mouse",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^29.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.morsemouse.app",
+    "productName": "Morse Mouse",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "assets/**/*"
+    ]
+  },
+  "keywords": ["morse", "electron", "desktop"],
+  "author": "",
+  "license": "MIT"
+}

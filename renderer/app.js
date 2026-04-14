@@ -1,4 +1,4 @@
-import { decodeMorse } from './morse.js';
+import { decodeMorse, decodeMorseToken } from './morse.js';
 
 // ─── Timing constants (ms) ──────────────────────────────────────────────────
 const DOT_THRESHOLD  = 200;   // shorter = dot, longer = dash
@@ -13,13 +13,15 @@ let lastInputTime = 0;
 let letterCommitted = false;
 let wordCommitted   = false;
 let audioCtx = null;
+let morseMode = false;   // true while Morse PC Input is active
 
 // ─── DOM refs ─────────────────────────────────────────────────────────────────
 const inputZone      = document.getElementById('input-zone');
 const morseDisplay   = document.getElementById('morse-display');
 const decodedDisplay = document.getElementById('decoded-display');
 const statusDot      = document.getElementById('status-dot');
-const clearBtn       = document.getElementById('clear-btn');
+const clearBtn        = document.getElementById('clear-btn');
+const modeBtn         = document.getElementById('mode-btn');
 const rippleContainer = document.getElementById('ripple-container');
 
 // ─── Audio ───────────────────────────────────────────────────────────────────
@@ -72,7 +74,7 @@ function buildMorseString() {
 
 function updateDisplay() {
   const morseStr = buildMorseString();
-  morseDisplay.textContent = morseStr || '—';
+  morseDisplay.textContent = morseStr;
 
   // For decoded, commit current token tentatively
   const tentativeWords = morseWords.map((w, wi) => {
@@ -96,9 +98,14 @@ function addSignal(signal) {
 function commitLetter() {
   if (letterCommitted || !currentToken) return;
   letterCommitted = true;
-  const lastWord = morseWords[morseWords.length - 1];
+  const decodedChar = decodeMorseToken(currentToken);
+  const lastWord    = morseWords[morseWords.length - 1];
   morseWords[morseWords.length - 1] = lastWord ? lastWord + ' ' + currentToken : currentToken;
   currentToken = '';
+  // Relay decoded character to the OS when Morse PC Input is active
+  if (morseMode && decodedChar && decodedChar !== '?' && window.morseAPI?.typeChar) {
+    window.morseAPI.typeChar(decodedChar);
+  }
   updateDisplay();
 }
 
@@ -109,6 +116,10 @@ function commitWord() {
   // Only add new word slot if the last word isn't already empty
   if (morseWords[morseWords.length - 1].trim() !== '') {
     morseWords.push('');
+    // Type a space between words when Morse PC Input is active
+    if (morseMode && window.morseAPI?.typeChar) {
+      window.morseAPI.typeChar(' ');
+    }
   }
   updateDisplay();
 }
@@ -173,6 +184,21 @@ inputZone.addEventListener('contextmenu', e => e.preventDefault());
 
 // ─── Clear button ─────────────────────────────────────────────────────────────
 clearBtn.addEventListener('click', clearAll);
+// ─── Morse PC Input mode ──────────────────────────────────────────────────
+modeBtn?.addEventListener('click', () => window.morseAPI?.toggleMode());
 
+if (window.morseAPI?.onModeChange) {
+  window.morseAPI.onModeChange((active) => {
+    morseMode = active;
+    document.body.classList.toggle('morse-mode', active);
+    if (modeBtn) {
+      modeBtn.classList.toggle('active', active);
+      modeBtn.textContent = active ? '\u2328 ON' : '\u2328 PC Input';
+      modeBtn.title = active
+        ? 'Morse PC Input is ON — press F8 to turn off'
+        : 'Enable Morse PC Input — F8';
+    }
+  });
+}
 // ─── Initial state ────────────────────────────────────────────────────────────
 updateDisplay();

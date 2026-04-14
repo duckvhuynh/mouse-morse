@@ -64,6 +64,39 @@ html, body {
   box-shadow: 0 0 8px var(--accent);
 }
 
+.titlebar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  -webkit-app-region: no-drag;
+}
+
+.mode-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 3px 11px;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  transition: border-color 0.15s, color 0.15s, background 0.15s, box-shadow 0.15s;
+  -webkit-app-region: no-drag;
+}
+
+.mode-btn:hover {
+  border-color: var(--accent2);
+  color: var(--accent2);
+}
+
+.mode-btn.active {
+  background: rgba(80, 208, 160, 0.1);
+  border-color: var(--accent2);
+  color: var(--accent2);
+  box-shadow: 0 0 8px rgba(80, 208, 160, 0.2);
+}
+
 /* ── Main layout ────────────────────────────────────────────────────────── */
 .layout {
   display: flex;
@@ -214,6 +247,7 @@ html, body {
 }
 
 .morse-value   { color: var(--dot-color); letter-spacing: 0.12em; }
+.morse-value:empty::before { content: '· · ·'; color: var(--text-muted); opacity: 0.4; letter-spacing: 0.12em; }
 .decoded-value { color: var(--text); font-size: 20px; letter-spacing: 0.06em; }
 
 .divider {
@@ -243,38 +277,71 @@ html, body {
 
 /* ── Cheat-sheet ────────────────────────────────────────────────────────── */
 .cheatsheet {
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
-.cheatsheet details {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 8px 14px;
+  padding: 10px 14px 12px;
+  overflow-y: auto;
+  max-height: 180px;
 }
 
-.cheatsheet summary {
-  cursor: pointer;
-  letter-spacing: 0.08em;
+.cheatsheet-header {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--text-muted);
-  list-style: none;
-  outline: none;
+  margin-bottom: 10px;
 }
-
-.cheatsheet summary:hover { color: var(--text); }
 
 .morse-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
-  gap: 4px 8px;
-  margin-top: 10px;
-  color: var(--text-muted);
-  font-size: 10.5px;
+  grid-template-columns: repeat(auto-fill, minmax(54px, 1fr));
+  gap: 6px;
 }
 
-.morse-grid span b {
+.morse-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 4px;
+  transition: border-color 0.15s;
+}
+
+.morse-card:hover {
+  border-color: #3a3a3a;
+}
+
+.mc-letter {
+  font-size: 15px;
+  font-weight: bold;
   color: var(--text);
+  line-height: 1;
+}
+
+.mc-code {
+  font-size: 11px;
+  color: var(--dot-color);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+/* ── Morse PC Input active state ────────────────────────────────────────── */
+body.morse-mode .input-zone {
+  border-color: var(--accent2);
+  background: #001a12;
+}
+
+body.morse-mode .hint-primary {
+  color: var(--accent2);
+}
+
+body.morse-mode .status-dot {
+  background: var(--accent2);
+  box-shadow: 0 0 8px var(--accent2);
 }
 
 /* ── Scrollbar (webkit) ─────────────────────────────────────────────────── */

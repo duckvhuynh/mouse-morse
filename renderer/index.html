@@ -12,7 +12,10 @@
   <!-- Window drag region / title bar -->
   <header class="titlebar">
     <span class="app-title">⬤ &nbsp;Morse Mouse</span>
-    <div id="status-dot" class="status-dot" title="Press active"></div>
+    <div class="titlebar-right">
+      <button id="mode-btn" class="mode-btn" title="Enable Morse PC Input — F8">⌨ PC Input</button>
+      <div id="status-dot" class="status-dot" title="Press active"></div>
+    </div>
   </header>
 
   <main class="layout">
@@ -35,7 +38,7 @@
 
       <div class="output-block">
         <label class="output-label">Morse</label>
-        <div id="morse-display" class="output-value morse-value" aria-live="polite">—</div>
+        <div id="morse-display" class="output-value morse-value" aria-live="polite"></div>
       </div>
 
       <div class="divider"></div>
@@ -51,23 +54,45 @@
 
     <!-- ── Reference cheat-sheet ─────────────────────── -->
     <section class="cheatsheet">
-      <details>
-        <summary>Morse Reference</summary>
-        <div class="morse-grid">
-          <!-- A–Z -->
-          <span><b>A</b> ·—</span><span><b>B</b> —···</span><span><b>C</b> —·—·</span><span><b>D</b> —··</span>
-          <span><b>E</b> ·</span><span><b>F</b> ··—·</span><span><b>G</b> ——·</span><span><b>H</b> ····</span>
-          <span><b>I</b> ··</span><span><b>J</b> ·———</span><span><b>K</b> —·—</span><span><b>L</b> ·—··</span>
-          <span><b>M</b> ——</span><span><b>N</b> —·</span><span><b>O</b> ———</span><span><b>P</b> ·——·</span>
-          <span><b>Q</b> ——·—</span><span><b>R</b> ·—·</span><span><b>S</b> ···</span><span><b>T</b> —</span>
-          <span><b>U</b> ··—</span><span><b>V</b> ···—</span><span><b>W</b> ·——</span><span><b>X</b> —··—</span>
-          <span><b>Y</b> —·——</span><span><b>Z</b> ——··</span>
-          <!-- 0–9 -->
-          <span><b>0</b> —————</span><span><b>1</b> ·————</span><span><b>2</b> ··———</span><span><b>3</b> ···——</span>
-          <span><b>4</b> ····—</span><span><b>5</b> ·····</span><span><b>6</b> —····</span><span><b>7</b> ——···</span>
-          <span><b>8</b> ———··</span><span><b>9</b> ————·</span>
-        </div>
-      </details>
+      <div class="cheatsheet-header">Morse Reference</div>
+      <div class="morse-grid">
+        <div class="morse-card"><span class="mc-letter">A</span><span class="mc-code">·—</span></div>
+        <div class="morse-card"><span class="mc-letter">B</span><span class="mc-code">—···</span></div>
+        <div class="morse-card"><span class="mc-letter">C</span><span class="mc-code">—·—·</span></div>
+        <div class="morse-card"><span class="mc-letter">D</span><span class="mc-code">—··</span></div>
+        <div class="morse-card"><span class="mc-letter">E</span><span class="mc-code">·</span></div>
+        <div class="morse-card"><span class="mc-letter">F</span><span class="mc-code">··—·</span></div>
+        <div class="morse-card"><span class="mc-letter">G</span><span class="mc-code">——·</span></div>
+        <div class="morse-card"><span class="mc-letter">H</span><span class="mc-code">····</span></div>
+        <div class="morse-card"><span class="mc-letter">I</span><span class="mc-code">··</span></div>
+        <div class="morse-card"><span class="mc-letter">J</span><span class="mc-code">·———</span></div>
+        <div class="morse-card"><span class="mc-letter">K</span><span class="mc-code">—·—</span></div>
+        <div class="morse-card"><span class="mc-letter">L</span><span class="mc-code">·—··</span></div>
+        <div class="morse-card"><span class="mc-letter">M</span><span class="mc-code">——</span></div>
+        <div class="morse-card"><span class="mc-letter">N</span><span class="mc-code">—·</span></div>
+        <div class="morse-card"><span class="mc-letter">O</span><span class="mc-code">———</span></div>
+        <div class="morse-card"><span class="mc-letter">P</span><span class="mc-code">·——·</span></div>
+        <div class="morse-card"><span class="mc-letter">Q</span><span class="mc-code">——·—</span></div>
+        <div class="morse-card"><span class="mc-letter">R</span><span class="mc-code">·—·</span></div>
+        <div class="morse-card"><span class="mc-letter">S</span><span class="mc-code">···</span></div>
+        <div class="morse-card"><span class="mc-letter">T</span><span class="mc-code">—</span></div>
+        <div class="morse-card"><span class="mc-letter">U</span><span class="mc-code">··—</span></div>
+        <div class="morse-card"><span class="mc-letter">V</span><span class="mc-code">···—</span></div>
+        <div class="morse-card"><span class="mc-letter">W</span><span class="mc-code">·——</span></div>
+        <div class="morse-card"><span class="mc-letter">X</span><span class="mc-code">—··—</span></div>
+        <div class="morse-card"><span class="mc-letter">Y</span><span class="mc-code">—·——</span></div>
+        <div class="morse-card"><span class="mc-letter">Z</span><span class="mc-code">——··</span></div>
+        <div class="morse-card"><span class="mc-letter">0</span><span class="mc-code">—————</span></div>
+        <div class="morse-card"><span class="mc-letter">1</span><span class="mc-code">·————</span></div>
+        <div class="morse-card"><span class="mc-letter">2</span><span class="mc-code">··———</span></div>
+        <div class="morse-card"><span class="mc-letter">3</span><span class="mc-code">···——</span></div>
+        <div class="morse-card"><span class="mc-letter">4</span><span class="mc-code">····—</span></div>
+        <div class="morse-card"><span class="mc-letter">5</span><span class="mc-code">·····</span></div>
+        <div class="morse-card"><span class="mc-letter">6</span><span class="mc-code">—····</span></div>
+        <div class="morse-card"><span class="mc-letter">7</span><span class="mc-code">——···</span></div>
+        <div class="morse-card"><span class="mc-letter">8</span><span class="mc-code">———··</span></div>
+        <div class="morse-card"><span class="mc-letter">9</span><span class="mc-code">————·</span></div>
+      </div>
     </section>
 
   </main>

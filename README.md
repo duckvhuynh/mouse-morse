@@ -2,6 +2,8 @@
 
 A minimal Electron desktop app that turns your mouse into a Morse code input device. Tap for dots, hold for dashes — letters and words decode in real time.
 
+![Morse Mouse preview](.github/preview.png)
+
 ---
 
 ## Features

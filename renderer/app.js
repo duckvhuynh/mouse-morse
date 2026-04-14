@@ -184,6 +184,12 @@ inputZone.addEventListener('contextmenu', e => e.preventDefault());
 
 // ─── Clear button ─────────────────────────────────────────────────────────────
 clearBtn.addEventListener('click', clearAll);
+
+// ─── Window controls ─────────────────────────────────────────────────────────
+document.getElementById('win-minimize')?.addEventListener('click', () => window.morseAPI?.minimize());
+document.getElementById('win-maximize')?.addEventListener('click', () => window.morseAPI?.maximize());
+document.getElementById('win-close')?.addEventListener('click',    () => window.morseAPI?.close());
+
 // ─── Morse PC Input mode ──────────────────────────────────────────────────
 modeBtn?.addEventListener('click', () => window.morseAPI?.toggleMode());
 

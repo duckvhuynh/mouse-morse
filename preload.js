@@ -15,4 +15,9 @@ contextBridge.exposeInMainWorld('morseAPI', {
     if (typeof cb !== 'function') return;
     ipcRenderer.on('morse-mode-changed', (_, active) => cb(active));
   },
+
+  // Window controls
+  minimize: () => ipcRenderer.send('win-minimize'),
+  maximize: () => ipcRenderer.send('win-maximize'),
+  close:    () => ipcRenderer.send('win-close'),
 });

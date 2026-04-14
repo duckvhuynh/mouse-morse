@@ -97,6 +97,39 @@ html, body {
   box-shadow: 0 0 8px rgba(80, 208, 160, 0.2);
 }
 
+.win-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 4px;
+}
+
+.win-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 13px;
+  width: 30px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.12s, color 0.12s;
+  -webkit-app-region: no-drag;
+}
+
+.win-btn:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+}
+
+.win-close:hover {
+  background: #c42b2b;
+  color: #fff;
+}
+
 /* ── Main layout ────────────────────────────────────────────────────────── */
 .layout {
   display: flex;

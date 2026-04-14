@@ -80,6 +80,11 @@ function createWindow() {
     if (morseMode) typeChar(char);
   });
 
+  // ── IPC: window controls ─────────────────────────────────────────────────
+  ipcMain.on('win-minimize', () => win.minimize());
+  ipcMain.on('win-maximize', () => win.isMaximized() ? win.unmaximize() : win.maximize());
+  ipcMain.on('win-close',    () => win.close());
+
   win.on('closed', () => {
     globalShortcut.unregisterAll();
     if (psTyper) { try { psTyper.stdin.end(); } catch (_) {} psTyper = null; }

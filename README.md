@@ -1,45 +1,52 @@
-# 🖱️ Morse Mouse
+# Morse Mouse
 
-A minimal, interactive desktop app that turns your mouse into a Morse code input device.
-Click and hold to send signals — see them decoded into text in real time.
-
-![Dark terminal-style UI with a large click zone and live decoded output](.github/preview.png)
+A minimal Electron desktop app that turns your mouse into a Morse code input device. Tap for dots, hold for dashes — letters and words decode in real time.
 
 ---
 
-## ✨ Features
+## Features
 
-- **Mouse-driven input** — tap for a dot, hold for a dash
-- **Real-time decoding** — Morse symbols are decoded as you type
-- **Audio feedback** — short beep for dots, long beep for dashes (Web Audio API)
+- **Mouse-driven input** — short click for dot, held click for dash
+- **PC input mode** — press F8 to route decoded characters directly into any focused window via system-level key injection
+- **Real-time decoding** — Morse symbols decode as you type
+- **Audio feedback** — distinct beep tones for dots and dashes
 - **Visual ripple effects** — click animations on the input zone
-- **Auto letter/word detection** — pauses automatically commit letters and words
-- **Morse reference sheet** — built-in collapsible cheat-sheet (A–Z, 0–9)
-- **Dark terminal UI** — minimal, distraction-free design
+- **Auto letter/word commit** — silence thresholds automatically commit letters and insert word spaces
+- **Built-in Morse reference** — always-visible A–Z and 0–9 cheat sheet
+- **Custom titlebar** — frameless window with minimize, maximize, and close controls
 
 ---
 
-## 🧠 How It Works
+## How It Works
 
 | Action | Result |
 |---|---|
-| Short click (< 200 ms) | Dot ` · ` |
-| Hold click (≥ 200 ms) | Dash ` — ` |
-| 600 ms silence | Current letter committed |
-| 1 400 ms silence | Word space added |
-| Click **✕ Clear** | Reset all output |
+| Short click (< 200 ms) | Dot |
+| Hold click (>= 200 ms) | Dash |
+| 600 ms silence | Commit current letter |
+| 1400 ms silence | Insert word space |
+| F8 (global) | Toggle PC input mode on/off |
+| Clear button | Reset all input and output |
 
-### Timing (configurable in `renderer/app.js`)
+### Timing
+
+Thresholds are defined at the top of `renderer/app.js`:
 
 ```js
-DOT_THRESHOLD = 200    // ms — shorter = dot, longer = dash
-LETTER_PAUSE  = 600    // ms — silence before letter is committed
-WORD_PAUSE    = 1400   // ms — silence before a space is added
+const DOT_THRESHOLD = 200   // ms — shorter = dot, longer = dash
+const LETTER_PAUSE  = 600   // ms — silence before letter is committed
+const WORD_PAUSE    = 1400  // ms — silence before a space is inserted
 ```
 
 ---
 
-## 🚀 Getting Started
+## PC Input Mode
+
+When PC input mode is active (F8 or the button in the titlebar), the overlay becomes click-through so keyboard focus stays in your target application. Each decoded character is injected into the focused window using PowerShell `SendKeys` on Windows.
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
@@ -60,7 +67,7 @@ npm install
 npm start
 ```
 
-### Build a distributable
+### Build
 
 ```bash
 npm run build
@@ -70,12 +77,12 @@ Output is placed in the `dist/` folder.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 mouse-morse/
-├── main.js          # Electron main process — creates the BrowserWindow
-├── preload.js       # Secure context bridge (contextIsolation enabled)
+├── main.js          # Electron main process, window management, IPC, F8 shortcut
+├── preload.js       # Context bridge — exposes morseAPI to the renderer
 ├── package.json
 └── renderer/
     ├── index.html   # UI shell
@@ -86,27 +93,18 @@ mouse-morse/
 
 ---
 
-## 🏗️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
 | Desktop shell | [Electron](https://www.electronjs.org/) |
 | Core logic | Vanilla JavaScript (ES Modules) |
+| Key injection | PowerShell `System.Windows.Forms.SendKeys` |
 | Audio | Web Audio API |
-| UI | HTML + CSS |
 | Build | electron-builder |
 
 ---
 
-## 🧪 Future Ideas
-
-- **Training mode** — show a target word and score your input by accuracy and speed
-- **Multiplayer** — real-time Morse chat over WebSocket
-- **Keyboard mode** — use spacebar as the input key instead of mouse
-- **Export** — copy decoded text to clipboard with one click
-
----
-
-## 📜 License
+## License
 
 MIT
